@@ -21,7 +21,8 @@ export default async (bot: Client) => {
       .setTitle("Rules")
       .setDescription(
         `Welcome to my server! Please follow the rules when engaging here.\n\n` +
-          ``
+        "**`1)`Don't use language that can be percieved as offensive or disrespectfull** \n" +
+        "**`2)`**"
       )
       .setColor("#FF0000"),
   ];
