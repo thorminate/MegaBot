@@ -1,4 +1,10 @@
-import { Client, EmbedBuilder, Events, TextChannel } from "discord.js";
+import {
+  AttachmentBuilder,
+  Client,
+  EmbedBuilder,
+  Events,
+  TextChannel,
+} from "discord.js";
 import { config } from "dotenv";
 config();
 
@@ -7,27 +13,29 @@ export default async (bot: Client) => {
 
   await (rulesChannel as TextChannel).bulkDelete(100, true);
 
-  await (rulesChannel as TextChannel).send({
-    files: [
-      {
-        attachment: "./assets/rules.png",
-        name: "rules.png",
-      },
-    ],
-  });
+  const rulesImage = new AttachmentBuilder("./assets/rules.png");
 
   const rulesComponents = [
+    new EmbedBuilder().setColor("#FF0000").setImage("attachment://rules.png"),
     new EmbedBuilder()
-      .setTitle("Rules")
-      .setDescription(
-        `Welcome to my server! Please follow the rules when engaging here.\n\n` +
-        "**`1)`Don't use language that can be percieved as offensive or disrespectfull** \n" +
-        "**`2)`**"
+      .setColor("#FF0000")
+      .setTitle(
+        "**Welcome to the official MegaNibby server! Please follow the rules when engaging here.**\n\n"
       )
-      .setColor("#FF0000"),
+      .setDescription(
+        "Make sure to always follow discords own [TOS](https://discord.com/terms)."
+      )
+      .addFields([
+        {
+          name: "**`1)`Don't use language that can be perceived as offensive or disrespectful**",
+          value:
+            "Swearing, cursing, or using derogatory language is not allowed. Treat everyone like you want to be treated.\n",
+        },
+      ]),
   ];
 
   await (rulesChannel as TextChannel).send({
     embeds: rulesComponents,
+    files: [rulesImage],
   });
 };
