@@ -50,6 +50,11 @@ export default async (bot: Client) => {
             "Advertising other servers is not allowed, nor is advertising your services or products allowed. Linking other youtube channels is also not allowed.\n",
         },
         {
+          name: "**`5)`Spamming**",
+          value:
+            "Spamming is not allowed. This includes posting the same message over and over again. \n",
+        },
+        {
           name: "**`5)`Staff's word**",
           value:
             "If a staff member asks you to stop doing something, you should STOP. All staff have the final say on what is allowed and what is not! They can override the rules if they see something inherently wrong. Therefore loopholes within the rules are not allowed.\n",
