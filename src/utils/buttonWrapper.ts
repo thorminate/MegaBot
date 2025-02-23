@@ -1,7 +1,7 @@
 // Turn an array of buttons into an array of action rows.
 import { ActionRowBuilder, ButtonBuilder } from "discord.js"; // Import the discord.js library.
 
-export default (buttons: Array<any>) => {
+export default (buttons: Array<any>): any => {
   // Export the function.
   const components = []; // Define components as an array.
   let currentRow = new ActionRowBuilder<ButtonBuilder>(); // Define currentRow as an ActionRowBuilder.
