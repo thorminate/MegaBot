@@ -6,11 +6,12 @@ import {
   Client,
   CommandInteraction,
 } from "discord.js";
+import calculateLevelExp from "../../utils/calculateLevelExp";
 import Player from "../../models/Player";
 
 export default {
   name: "panel",
-  description: "Get the status of the bot.",
+  description: "Get your level and xp.",
   options: [
     {
       name: "show-others",
@@ -31,11 +32,11 @@ export default {
     }
 
     const isEphemeral = interaction.options.get("show-others")
-      ? (interaction.options.get("show-others").value as boolean)
+      ? (!interaction.options.get("show-others").value as boolean)
       : true;
 
     await interaction.reply({
-      content: `You have ${player.xp} xp and are at level ${player.level}.`,
+      content: `You are at level ${player.level} and you have ${player.xp} xp. You need ${calculateLevelExp(player.level)} xp to level up.`,
       ephemeral: isEphemeral,
     });
   },
