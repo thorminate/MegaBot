@@ -72,7 +72,7 @@ const checkRole = async (member: GuildMember, player: Player) => {
     player.level >= 25 &&
     !currentRoles.find((role) => role.id === process.env.UNCOMMON_FAN_ROLE_ID)
   ) {
-    await member.roles.add(process.env.UNCOMMON_ROLE_ID);
+    await member.roles.add(process.env.UNCOMMON_FAN_ROLE_ID);
   }
 
   if (
