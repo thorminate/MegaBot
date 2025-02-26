@@ -4,6 +4,8 @@ import Player from "../../models/Player";
 export default async (bot: Client, message: Message) => {
   const player = await Player.load(message.author.username); // Get the player.
 
+  if (!message.guild) return;
+
   const member = await message.guild.members.fetch(message.author.id);
 
   if (!player) {
