@@ -38,6 +38,14 @@ export default async (bot: Client, interaction: ButtonInteraction) => {
       });
       break;
     case "onboarding-continue":
+      if (await Player.load(interaction.user.username)) {
+        await interaction.reply({
+          content: "You are already registered.",
+          ephemeral: true,
+        });
+        return;
+      }
+      
       const onboardingContinueButtons = buttonWrapper([
         new ButtonBuilder()
           .setCustomId("onboarding-done")
@@ -53,6 +61,14 @@ export default async (bot: Client, interaction: ButtonInteraction) => {
       });
       break;
     case "onboarding-done":
+      if (await Player.load(interaction.user.username)) {
+        await interaction.reply({
+          content: "You are already registered.",
+          ephemeral: true,
+        });
+        return;
+      }
+      
       const newPlayer = new Player(interaction.user.username);
 
       await newPlayer.save();
@@ -62,7 +78,7 @@ export default async (bot: Client, interaction: ButtonInteraction) => {
       );
 
       await interaction.reply({
-        content: "You have been verified! Welcome to the server! :)",
+        content: "You have been verified, welcome to the server! :) You are currently level 1, level up to level 2 to unlock all channels.",
         ephemeral: true,
       });
       break;
