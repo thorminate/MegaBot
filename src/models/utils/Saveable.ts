@@ -39,6 +39,27 @@ export default abstract class Saveable<T extends Document> {
     return instance;
   }
 
+  static async loadOrCreate<T extends Document, TInstance extends Saveable<T>>(
+    this: SaveableConstructor<T, TInstance>,
+    identifier: any
+  ): Promise<TInstance> {
+    const model = this.getModel();
+    const doc = await model.findOne({
+      [this.prototype.getIdentifier().key]: identifier,
+    } as Record<string, any>);
+
+    if (doc) {
+      // Create an instance and populate it
+      const instance = new this() as TInstance;
+      Object.assign(instance, doc.toObject());
+      return instance;
+    } else {
+      const instance = new this(identifier) as TInstance;
+      await instance.save();
+      return instance;
+    }
+  }
+
   static async delete<T extends Document>(
     this: SaveableConstructor<T, any>,
     identifier: any
