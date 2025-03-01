@@ -51,7 +51,7 @@ export default abstract class Saveable<T extends Document> {
     if (doc) {
       // Create an instance and populate it
       const instance = new this() as TInstance;
-      Object.assign(instance, doc.toObject());
+      Object.assign(instance, doc.toObject() as T);
       return instance;
     } else {
       const instance = new this(identifier) as TInstance;
