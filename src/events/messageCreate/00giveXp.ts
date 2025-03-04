@@ -1,8 +1,10 @@
-import { Client, Message, PermissionsBitField, TextChannel } from "discord.js";
+import { Client, Message, TextChannel } from "discord.js";
 import Player from "../../models/Player";
 
 export default async (bot: Client, message: Message) => {
-  const player = await Player.loadOrCreate(message.author.username); // Get the player.
+  let player = await Player.load(message.author.username); // Get the player.
+
+  if (!player) player = new Player(message.author.username);
 
   if (!message.guild) return;
 
@@ -11,7 +13,7 @@ export default async (bot: Client, message: Message) => {
   const min = 1;
   const max = 3;
 
-  player.giveXpFromRange(
+  await player.giveXpFromRange(
     min,
     max,
     member,
