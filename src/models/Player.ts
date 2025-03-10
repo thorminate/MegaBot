@@ -202,12 +202,14 @@ export default class Player extends Saveable<IPlayer> {
     save: boolean = true,
     currentChannel?: TextChannel
   ) {
+    if (isNaN(xp)) xp = 0
     this.xp += amount;
     while (this.xp >= calculateLevelExp(this.level)) {
       this.levelUp(1, member, currentChannel, false, false);
       this.xp -= calculateLevelExp(this.level - 1);
     }
 
+    if (isNaN(xp) || xp < 0) xp = 0
     if (save) this.save();
   }
 
