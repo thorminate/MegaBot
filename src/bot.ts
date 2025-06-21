@@ -6,10 +6,8 @@
  */
 import { Client, IntentsBitField, Partials } from "discord.js"; // Get the discord.js library.
 import mongoose from "mongoose"; // Get the mongoose library.
-import eventHandler from "./handlers/eventHandler"; // Get the event handler.
-import log from "./utils/log";
-import { config } from "dotenv";
-config();
+import eventHandler from "./handlers/eventHandler.js"; // Get the event handler.
+import log from "./utils/log.js";
 
 // Define 'bot'
 export const bot = new Client({
@@ -49,7 +47,7 @@ export const bot = new Client({
   ],
 });
 
-const MongoDBToken = process.env.MONGODB_URI; // Get the MongoDB token and concatenate it with 'the_system'.
+const MongoDBToken = process.env.MONGODB_URI;
 const DiscordToken = process.env.TOKEN; // Get the Discord token.
 // Connect to DB and Discord.
 (async () => {

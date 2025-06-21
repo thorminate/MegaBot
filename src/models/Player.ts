@@ -1,9 +1,7 @@
 import mongoose from "mongoose";
-import Saveable from "./utils/Saveable";
+import Saveable from "./utils/Saveable.js";
 import { GuildMember, TextChannel } from "discord.js";
-import calculateLevelExp from "../utils/calculateLevelExp";
-import { config } from "dotenv";
-config();
+import calculateLevelExp from "../utils/calculateLevelExp.js";
 
 interface IPlayer extends mongoose.Document {
   username: string;
@@ -27,13 +25,6 @@ const checkRole = async (member: GuildMember, player: Player) => {
   const currentRoles = await member.roles.cache;
 
   if (
-    player.level >= 1 &&
-    !currentRoles.find((role) => role.id === process.env.COMMON_FAN_ROLE_ID)
-  ) {
-    await member.roles.add(process.env.COMMON_FAN_ROLE_ID);
-  }
-
-  if (
     player.level >= 5 &&
     !currentRoles.find((role) => role.id === process.env.LVL5_ROLE_ID)
   ) {
@@ -48,31 +39,10 @@ const checkRole = async (member: GuildMember, player: Player) => {
   }
 
   if (
-    player.level >= 15 &&
-    !currentRoles.find((role) => role.id === process.env.LVL15_ROLE_ID)
-  ) {
-    await member.roles.add(process.env.LVL15_ROLE_ID);
-  }
-
-  if (
     player.level >= 20 &&
     !currentRoles.find((role) => role.id === process.env.LVL20_ROLE_ID)
   ) {
     await member.roles.add(process.env.LVL20_ROLE_ID);
-  }
-
-  if (
-    player.level >= 25 &&
-    !currentRoles.find((role) => role.id === process.env.LVL25_ROLE_ID)
-  ) {
-    await member.roles.add(process.env.LVL25_ROLE_ID);
-  }
-
-  if (
-    player.level >= 25 &&
-    !currentRoles.find((role) => role.id === process.env.UNCOMMON_FAN_ROLE_ID)
-  ) {
-    await member.roles.add(process.env.UNCOMMON_FAN_ROLE_ID);
   }
 
   if (
@@ -83,24 +53,10 @@ const checkRole = async (member: GuildMember, player: Player) => {
   }
 
   if (
-    player.level >= 35 &&
-    !currentRoles.find((role) => role.id === process.env.LVL35_ROLE_ID)
-  ) {
-    await member.roles.add(process.env.LVL35_ROLE_ID);
-  }
-
-  if (
     player.level >= 40 &&
     !currentRoles.find((role) => role.id === process.env.LVL40_ROLE_ID)
   ) {
     await member.roles.add(process.env.LVL40_ROLE_ID);
-  }
-
-  if (
-    player.level >= 45 &&
-    !currentRoles.find((role) => role.id === process.env.LVL45_ROLE_ID)
-  ) {
-    await member.roles.add(process.env.LVL45_ROLE_ID);
   }
 
   if (
@@ -111,31 +67,10 @@ const checkRole = async (member: GuildMember, player: Player) => {
   }
 
   if (
-    player.level >= 50 &&
-    !currentRoles.find((role) => role.id === process.env.RARE_FAN_ROLE_ID)
+    player.level >= 65 &&
+    !currentRoles.find((role) => role.id === process.env.LVL65_ROLE_ID)
   ) {
-    await member.roles.add(process.env.RARE_FAN_ROLE_ID);
-  }
-
-  if (
-    player.level >= 60 &&
-    !currentRoles.find((role) => role.id === process.env.LVL60_ROLE_ID)
-  ) {
-    await member.roles.add(process.env.LVL60_ROLE_ID);
-  }
-
-  if (
-    player.level >= 70 &&
-    !currentRoles.find((role) => role.id === process.env.LVL70_ROLE_ID)
-  ) {
-    await member.roles.add(process.env.LVL70_ROLE_ID);
-  }
-
-  if (
-    player.level >= 75 &&
-    !currentRoles.find((role) => role.id === process.env.EPIC_FAN_ROLE_ID)
-  ) {
-    await member.roles.add(process.env.EPIC_FAN_ROLE_ID);
+    await member.roles.add(process.env.LVL65_ROLE_ID);
   }
 
   if (
@@ -146,24 +81,10 @@ const checkRole = async (member: GuildMember, player: Player) => {
   }
 
   if (
-    player.level >= 90 &&
-    !currentRoles.find((role) => role.id === process.env.LVL90_ROLE_ID)
-  ) {
-    await member.roles.add(process.env.LVL90_ROLE_ID);
-  }
-
-  if (
     player.level >= 100 &&
     !currentRoles.find((role) => role.id === process.env.LVL100_ROLE_ID)
   ) {
     await member.roles.add(process.env.LVL100_ROLE_ID);
-  }
-
-  if (
-    player.level >= 100 &&
-    !currentRoles.find((role) => role.id === process.env.MEGA_FAN_ROLE_ID)
-  ) {
-    await member.roles.add(process.env.MEGA_FAN_ROLE_ID);
   }
 };
 
@@ -202,14 +123,14 @@ export default class Player extends Saveable<IPlayer> {
     save: boolean = true,
     currentChannel?: TextChannel
   ) {
-    if (isNaN(this.xp)) this.xp = 0
+    if (isNaN(this.xp)) this.xp = 0;
     this.xp += amount;
     while (this.xp >= calculateLevelExp(this.level)) {
       this.levelUp(1, member, currentChannel, false, false);
       this.xp -= calculateLevelExp(this.level - 1);
     }
 
-    if (isNaN(this.xp) || this.xp < 0) this.xp = 0
+    if (isNaN(this.xp) || this.xp < 0) this.xp = 0;
     if (save) this.save();
   }
 

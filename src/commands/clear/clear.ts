@@ -1,4 +1,4 @@
-import { Client, CommandInteraction } from "discord.js";
+import { Client, CommandInteraction, MessageFlags } from "discord.js";
 
 export default {
   name: "clear",
@@ -9,7 +9,7 @@ export default {
 
     await interaction.reply({
       content: "Chat cleared.",
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
   },
 };

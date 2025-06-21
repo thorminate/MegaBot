@@ -5,9 +5,10 @@ import {
   ButtonStyle,
   Client,
   CommandInteraction,
+  MessageFlags,
 } from "discord.js";
-import calculateLevelExp from "../../utils/calculateLevelExp";
-import Player from "../../models/Player";
+import calculateLevelExp from "../../utils/calculateLevelExp.js";
+import Player from "../../models/Player.js";
 
 export default {
   name: "panel",
@@ -26,7 +27,7 @@ export default {
     if (!player) {
       await interaction.reply({
         content: "You are not registered.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -36,8 +37,10 @@ export default {
       : true;
 
     await interaction.reply({
-      content: `You are at level ${player.level} and you have ${player.xp} xp. You need ${calculateLevelExp(player.level)} xp to level up.`,
-      ephemeral: isEphemeral,
+      content: `You are at level ${player.level} and you have ${
+        player.xp
+      } xp. You need ${calculateLevelExp(player.level)} xp to level up.`,
+      flags: isEphemeral ? MessageFlags.Ephemeral : undefined,
     });
   },
 };

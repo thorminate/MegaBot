@@ -1,17 +1,18 @@
 // Register, edit and delete commands
 import { Client } from "discord.js";
-import areCommandsDifferent from "../../utils/areCommandsDifferent";
-import getApplicationCommands from "../../utils/getApplicationCommands";
-import getLocalCommands from "../../utils/getLocalCommands";
-import log from "../../utils/log";
+import areCommandsDifferent from "../../utils/areCommandsDifferent.js";
+import getApplicationCommands from "../../utils/getApplicationCommands.js";
+import getLocalCommands from "../../utils/getLocalCommands.js";
+import log from "../../utils/log.js";
 
 export default async (bot: Client) => {
   try {
     // Define local commands and application commands
     const localCommands = await getLocalCommands();
+
     const applicationCommands = await getApplicationCommands(
       bot,
-      "1342593701171429478"
+      "1366433331150848143"
     );
 
     // loop through all local commands

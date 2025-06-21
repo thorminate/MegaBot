@@ -7,9 +7,6 @@ import {
   EmbedBuilder,
   TextChannel,
 } from "discord.js";
-import { config } from "dotenv";
-import buttonWrapper from "../../utils/buttonWrapper";
-config();
 
 export default async (bot: Client) => {
   const rulesChannel = await bot.channels.fetch(process.env.RULES_CHANNEL_ID);
@@ -30,38 +27,58 @@ export default async (bot: Client) => {
       )
       .addFields([
         {
-          name: "**`1)`Behavior in the server.**",
+          name: "**`1.` Be Respectful**",
           value:
-            "Swearing, cursing, or using derogatory language is not allowed. Treat everyone like you want to be treated.\n",
+            "Treat everyone with kindness. No bullying, hate speech, discrimination, or personal attacks. \n",
         },
         {
-          name: "**`2)`Keep this server clean**",
+          name: "**`2.` No Spamming**",
           value:
-            "Keep everything family friendly and non controversial. This means no swearing. Please keep topic relevant to the channel. No topic meant to incite a negative response. \n",
+            "No flooding chats with messages, emojis, or random content. Keep it cool. \n",
         },
         {
-          name: "**`3)`Profiles and usernames**",
+          name: "**`3.` Keep it Clean**",
           value:
-            "Usernames, nicknames and profile pictures are subject to the same rules as chat. Please keep these family friendly. This also means no impersonation! \n",
+            "No NSFW, overly violent, or disturbing content. This is a community for all ages. \n",
         },
         {
-          name: "**`4)`Advertising**",
+          name: "**`4.` Stay on Topic**",
           value:
-            "Advertising other servers is not allowed, nor is advertising your services or products allowed. Linking other youtube channels is also not allowed.\n",
+            "Post in the correct channels. Gaming talk in #gaming-chat, memes in #memes, etc. \n",
         },
         {
-          name: "**`5)`Spamming**",
+          name: "**`5.` No Self-Promo (Without Permission)**",
           value:
-            "Spamming is not allowed. This includes posting the same message over and over again. \n",
+            "Don’t promote your server, YouTube, or socials unless you're allowed. Use the right channels if available. \n",
         },
         {
-          name: "**`5)`Staff's word**",
+          name: "**`6.` Follow Discord’s Terms of Service**",
           value:
-            "If a staff member asks you to stop doing something, you should STOP. All staff have the final say on what is allowed and what is not! They can override the rules if they see something inherently wrong. Therefore loopholes within the rules are not allowed.\n",
+            "No cheating, hacking, illegal activities, or anything that breaks Discord rules. \n",
+        },
+        {
+          name: "**`7.` Listen to staff**",
+          value:
+            "Moderators and Admins are here to help. If they ask you to stop, please do. \n",
+        },
+        {
+          name: "**`8.` No Drama**",
+          value:
+            "Take heated arguments or sensitive topics elsewhere. Keep this place friendly and fun. \n",
+        },
+        {
+          name: "**`9.` Think Before You Post**",
+          value:
+            "If you’re not sure if something is okay to say or do, it’s probably best not to. Use good judgement and don’t try to bend the rules. \n",
+        },
+        {
+          name: "**`10.` Have Fun! 🎉**",
+          value:
+            "This is a place to hang out, talk games, share content, and enjoy the community. \n",
         },
       ])
       .setFooter({
-        text: "You can report someone with the /report command.",
+        text: "⚠️ Breaking the rules may result in warnings, mutes, kicks, or bans — depending on the situation. \n\nYou can report someone with the /report command.",
       }),
   ];
 

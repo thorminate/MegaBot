@@ -3,9 +3,14 @@
  * @param {Client} bot The instantiating client.
  * @param {Interaction} interaction The interaction that ran the command.
  */
-import getLocalCommands from "../../utils/getLocalCommands";
-import { Client, CommandInteraction, PermissionsBitField } from "discord.js";
-import log from "../../utils/log";
+import getLocalCommands from "../../utils/getLocalCommands.js";
+import {
+  Client,
+  CommandInteraction,
+  MessageFlags,
+  PermissionsBitField,
+} from "discord.js";
+import log from "../../utils/log.js";
 
 export default async (bot: Client, commandInteraction: CommandInteraction) => {
   if (!commandInteraction.isChatInputCommand()) return;
@@ -30,17 +35,17 @@ export default async (bot: Client, commandInteraction: CommandInteraction) => {
       ) {
         commandInteraction.reply({
           content: "Only administrators can run this command",
-          ephemeral: true,
+          flags: MessageFlags.Ephemeral,
         });
         return;
       }
     }
 
     // if where the command is called was not in the main server, return
-    if (!(commandInteraction.guild.id === "1342593701171429478")) {
+    if (!(commandInteraction.guild.id === "1366433331150848143")) {
       commandInteraction.reply({
         content: "Nuh uh, wrong server.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
       return;
     }
@@ -54,7 +59,7 @@ export default async (bot: Client, commandInteraction: CommandInteraction) => {
         ) {
           commandInteraction.reply({
             content: "Access Denied",
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral,
           });
           return;
         }
@@ -68,7 +73,7 @@ export default async (bot: Client, commandInteraction: CommandInteraction) => {
         if (!bot.permissions.has(permission)) {
           commandInteraction.reply({
             content: "I don't have enough permissions.",
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral,
           });
           return;
         }

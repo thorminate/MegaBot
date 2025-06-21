@@ -1,7 +1,9 @@
 import { Client, Message, TextChannel } from "discord.js";
-import Player from "../../models/Player";
+import Player from "../../models/Player.js";
 
 export default async (bot: Client, message: Message) => {
+  if (message.author.bot) return; // Ignore bot messages.
+
   let player = await Player.load(message.author.username); // Get the player.
 
   if (!player) player = new Player(message.author.username);

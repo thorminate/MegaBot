@@ -1,5 +1,6 @@
 import path from "node:path";
 import fs from "node:fs";
+import { fileURLToPath } from "node:url";
 
 interface Options {
   header: string;
@@ -8,6 +9,8 @@ interface Options {
   type?: "fatal" | "error" | "warn" | "info" | "verbose" | "debug" | "silly";
 }
 
+const __dirname = fileURLToPath(import.meta.url); // Get the current directory name.
+
 export default (options: Options) => {
   let { folder, payload, header, type } = options;
 
@@ -15,13 +18,15 @@ export default (options: Options) => {
 
   const date = new Date();
 
-  if (!fs.existsSync(path.join(__dirname, "..", "..", "logs"))) {
-    fs.mkdirSync(path.join(__dirname, "..", "..", "logs"), {
+  const logFolder = path.join(__dirname, "..", "..", "..", "logs");
+
+  if (!fs.existsSync(logFolder)) {
+    fs.mkdirSync(logFolder, {
       recursive: true,
     });
   }
   if (!folder) {
-    folder = path.join(__dirname, "..", "..", "logs");
+    folder = logFolder;
   }
   const logStream = fs.createWriteStream(
     path.join(folder, `${date.toISOString().slice(0, 10)}.log`),

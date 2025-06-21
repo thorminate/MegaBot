@@ -4,11 +4,10 @@ import {
   ButtonStyle,
   Client,
   GuildMemberRoleManager,
+  MessageFlags,
 } from "discord.js";
-import buttonWrapper from "../../utils/buttonWrapper";
-import Player from "../../models/Player";
-import { config } from "dotenv";
-config();
+import buttonWrapper from "../../utils/buttonWrapper.js";
+import Player from "../../models/Player.js";
 
 export default async (bot: Client, interaction: ButtonInteraction) => {
   if (!interaction.isButton()) return;
@@ -18,7 +17,7 @@ export default async (bot: Client, interaction: ButtonInteraction) => {
       if (await Player.load(interaction.user.username)) {
         await interaction.reply({
           content: "You are already registered.",
-          ephemeral: true,
+          flags: MessageFlags.Ephemeral,
         });
         return;
       }
@@ -32,8 +31,8 @@ export default async (bot: Client, interaction: ButtonInteraction) => {
 
       await interaction.reply({
         content:
-          "Before we continue, please read through these <#1342609281526005811>",
-        ephemeral: true,
+          "Before we continue, please read through these <#1366452300016779304>",
+        flags: MessageFlags.Ephemeral,
         components: onboardingVerifyButtons,
       });
       break;
@@ -41,11 +40,11 @@ export default async (bot: Client, interaction: ButtonInteraction) => {
       if (await Player.load(interaction.user.username)) {
         await interaction.reply({
           content: "You are already registered.",
-          ephemeral: true,
+          flags: MessageFlags.Ephemeral,
         });
         return;
       }
-      
+
       const onboardingContinueButtons = buttonWrapper([
         new ButtonBuilder()
           .setCustomId("onboarding-done")
@@ -56,7 +55,7 @@ export default async (bot: Client, interaction: ButtonInteraction) => {
       await interaction.reply({
         content:
           "Now, make sure you have subscribed to MegaNibby on [YouTube](https://www.youtube.com/@MegaNibby)!",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
         components: onboardingContinueButtons,
       });
       break;
@@ -64,11 +63,11 @@ export default async (bot: Client, interaction: ButtonInteraction) => {
       if (await Player.load(interaction.user.username)) {
         await interaction.reply({
           content: "You are already registered.",
-          ephemeral: true,
+          flags: MessageFlags.Ephemeral,
         });
         return;
       }
-      
+
       const newPlayer = new Player(interaction.user.username);
 
       await newPlayer.save();
@@ -78,8 +77,9 @@ export default async (bot: Client, interaction: ButtonInteraction) => {
       );
 
       await interaction.reply({
-        content: "You have been verified, welcome to the server! :) You are currently level 1, level up to level 2 to unlock all channels.",
-        ephemeral: true,
+        content:
+          "You have been verified, welcome to the server! :) You are currently level 1, level up to level 2 to unlock all channels.",
+        flags: MessageFlags.Ephemeral,
       });
       break;
   }

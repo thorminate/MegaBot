@@ -1,4 +1,4 @@
-import { Document, FilterQuery, Model } from "mongoose";
+import { Document, Model } from "mongoose";
 
 // Define a specialized interface for the constructor
 export interface SaveableConstructor<T extends Document, TInstance> {

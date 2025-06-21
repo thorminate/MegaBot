@@ -1,6 +1,8 @@
 import path from "path"; // Get the path library.
-import getAllFiles from "../utils/getAllFiles"; // Get the getAllFiles function.
+import getAllFiles from "../utils/getAllFiles.js"; // Get the getAllFiles function.
 import url from "url";
+
+const __dirname = url.fileURLToPath(import.meta.url); // Get the current directory name.
 
 export default async (exceptions = []) => {
   // Export the function.
@@ -8,7 +10,7 @@ export default async (exceptions = []) => {
 
   const commandCategories = getAllFiles(
     // get all command categories and store in an array
-    path.join(__dirname, "..", "commands"), // get the path to the commands folder
+    path.join(__dirname, "..", "..", "commands"), // get the path to the commands folder
     true // folders only
   );
 
@@ -19,9 +21,14 @@ export default async (exceptions = []) => {
       // loop through all files in the command category
       const filePath = path.resolve(commandFile); // get the path to the file
       const fileUrl = url.pathToFileURL(filePath); // get the url to the file
-      const commandObject = (await import(fileUrl.toString())).default.default; // import the file
+      const commandObject = (await import(fileUrl.toString())).default; // import the file
 
-      if (exceptions.includes(commandObject.name)) {
+      if (!commandObject || !commandObject.name) {
+        // if the command object does not exist or does not have a name, skip it
+        continue;
+      }
+
+      if (exceptions.includes(commandObject.name as string)) {
         // if the command name is in the exceptions array
         continue; // skip the command
       }
