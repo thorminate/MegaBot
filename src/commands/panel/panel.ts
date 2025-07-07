@@ -3,6 +3,7 @@ import {
   ApplicationCommandOptionType,
   ButtonBuilder,
   ButtonStyle,
+  ChatInputCommandInteraction,
   Client,
   CommandInteraction,
   MessageFlags,
@@ -21,7 +22,7 @@ export default {
       required: false,
     },
   ],
-  callback: async (bot: Client, interaction: CommandInteraction) => {
+  callback: async (bot: Client, interaction: ChatInputCommandInteraction) => {
     const player = await Player.load(interaction.user.username);
 
     if (!player) {

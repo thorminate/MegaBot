@@ -3,9 +3,8 @@ import {
   ApplicationCommandOptionType,
   ButtonBuilder,
   ButtonStyle,
+  ChatInputCommandInteraction,
   Client,
-  CommandInteraction,
-  Embed,
   EmbedBuilder,
   MessageFlags,
   ModalBuilder,
@@ -33,7 +32,7 @@ export default {
       required: true,
     },
   ],
-  callback: async (bot: Client, interaction: CommandInteraction) => {
+  callback: async (bot: Client, interaction: ChatInputCommandInteraction) => {
     const user = interaction.options.get("user").user;
     const reason = interaction.options.get("reason").value.toString();
 
